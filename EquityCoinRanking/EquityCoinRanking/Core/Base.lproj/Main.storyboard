@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="XEA-wU-4Zg">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Coin List View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="CoinListViewController" customModule="EquityCoinRanking" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" placeholder="Search coin name" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NdX-9P-X8v">
+                                <rect key="frame" x="0.0" y="103" width="393" height="56"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="RxQ-w9-8qs"/>
+                                </connections>
+                            </searchBar>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Vq9-fa-3j3">
+                                <rect key="frame" x="0.0" y="159" width="393" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MeU-Rw-hRp">
+                                        <rect key="frame" x="0.0" y="0.0" width="111" height="50"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="tinted" image="chevron.up.chevron.down" catalog="system" title="Coins"/>
+                                        <connections>
+                                            <action selector="didTapOnCoinButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2UT-GL-Cjl"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WbY-pI-hbz">
+                                        <rect key="frame" x="141" y="0.0" width="111" height="50"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="tinted" image="chevron.down" catalog="system" title="Price"/>
+                                        <connections>
+                                            <action selector="didTapOnPriceButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jqV-Yx-1QU"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kLI-H8-ybg">
+                                        <rect key="frame" x="282" y="0.0" width="111" height="50"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="tinted" image="chevron.up.chevron.down" catalog="system" title="24 H"/>
+                                        <connections>
+                                            <action selector="didTapOn24HButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Rxc-wu-j5p"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="tAJ-m3-Uh4"/>
+                                </constraints>
+                            </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="rRm-2q-exq">
+                                <rect key="frame" x="0.0" y="209" width="393" height="643"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="hHj-EP-B8s"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="nDO-Fd-uoy"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="rRm-2q-exq" secondAttribute="bottom" id="0d3-2s-Axy"/>
+                            <constraint firstItem="rRm-2q-exq" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="22I-X3-uTQ"/>
+                            <constraint firstItem="NdX-9P-X8v" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="6hA-HB-gva"/>
+                            <constraint firstItem="rRm-2q-exq" firstAttribute="top" secondItem="Vq9-fa-3j3" secondAttribute="bottom" id="80b-kz-Ld9"/>
+                            <constraint firstItem="Vq9-fa-3j3" firstAttribute="top" secondItem="NdX-9P-X8v" secondAttribute="bottom" id="CrL-IQ-3pv"/>
+                            <constraint firstItem="NdX-9P-X8v" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="K1e-MH-b2P"/>
+                            <constraint firstItem="Vq9-fa-3j3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="X5A-Jq-blm"/>
+                            <constraint firstItem="rRm-2q-exq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Xlx-0N-fbf"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Vq9-fa-3j3" secondAttribute="trailing" id="mTg-Pd-VT8"/>
+                            <constraint firstItem="NdX-9P-X8v" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="u1E-1X-Qhx"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="tm2-pY-luP"/>
+                    <connections>
+                        <outlet property="btn24H" destination="kLI-H8-ybg" id="QyL-oN-SeI"/>
+                        <outlet property="btnAll" destination="MeU-Rw-hRp" id="xxL-iZ-nAc"/>
+                        <outlet property="btnPrice" destination="WbY-pI-hbz" id="SPm-02-jUo"/>
+                        <outlet property="searchBar" destination="NdX-9P-X8v" id="Chu-Dx-mfl"/>
+                        <outlet property="tblCoin" destination="rRm-2q-exq" id="BdK-vY-d3C"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="872.51908396946567" y="3.5211267605633805"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="M5s-Kk-2B9">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XEA-wU-4Zg" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="4HZ-Wt-XmC">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="B1X-aK-Nyw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3b6-r3-4jV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-54.198473282442748" y="3.5211267605633805"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="chevron.down" catalog="system" width="128" height="70"/>
+        <image name="chevron.up.chevron.down" catalog="system" width="109" height="128"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
