@@ -65,7 +65,7 @@ cd CryptoTracker
 ## 🏗 Open the Project in Xcode
 
 1. Ensure **Xcode (Version 16.0+)** is installed.  
-2. Open `CryptoTracker.xcodeproj` in Xcode.  
+2. Open `EquityCoinRanking.xcodeproj` in Xcode.  
 3. Make sure you have an **active internet connection** to fetch dependencies.  
 
 ---
