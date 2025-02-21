@@ -45,6 +45,7 @@ struct CoinList: Codable, Identifiable {
     let change: String
     let marketCap: String
     let volume24h: String
+    let description: String?
     let rank: Int
     let listedAt: Double?
     let sparkline: [String?]
@@ -57,6 +58,7 @@ struct CoinList: Codable, Identifiable {
             case iconUrl
             case change
             case rank
+            case description
             case listedAt
             case sparkline
             case marketCap
@@ -82,6 +84,7 @@ extension CoinList {
         change: "0",
         marketCap: "0",
         volume24h: "0",
+        description: "description here",
         rank: 1,
         listedAt: 0,
         sparkline: []

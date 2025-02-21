@@ -9,24 +9,26 @@ import SwiftUI
 import Charts
 
 struct CoinDetailView: View {
-    let coin: CoinList
-        @StateObject private var viewModel: CoinDetailViewModel
-    
-    init(coin: CoinList) {
-            self.coin = coin
-            _viewModel = StateObject(wrappedValue: CoinDetailViewModel(coin: coin))
-        }
+    @State private var readMore: Bool = false
+    @StateObject private var viewModel: CoinDetailViewModel
+    let uuid: String
+
+    init(uuid: String) {
+        self.uuid = uuid
+        _viewModel = StateObject(wrappedValue: CoinDetailViewModel())
+    }
 
     
     var body: some View {
         ScrollView {
             VStack {
-                ChartView(coin: coin)
+                ChartView(coin: viewModel.coinDetail)
                     .padding(.vertical)
                 
                 VStack(spacing: 20) {
                     overviewTitle
                     Divider()
+                    coinDescriptionSection
                     overviewGrid
                     additionalTitle
                     Divider()
@@ -34,6 +36,9 @@ struct CoinDetailView: View {
                 }
                 .padding()
 
+            }
+            .onAppear {
+                viewModel.fetchCoinDetail(uuid: uuid)
             }
 
         }
@@ -45,7 +50,7 @@ extension CoinDetailView {
     
     private var navigationBarTrailingItems: some View {
         HStack {
-            Text(coin.symbol.uppercased())
+            Text(viewModel.coinDetail.symbol.uppercased())
                 .font(.headline)
                 .foregroundColor(Color.theme.secondaryText)
         }
@@ -57,6 +62,33 @@ extension CoinDetailView {
             .bold()
             .foregroundColor(Color.theme.text)
             .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    private var coinDescriptionSection: some View {
+        ZStack {
+            if let coinDescription = viewModel.coinDetail.description,
+               !coinDescription.isEmpty {
+                VStack(alignment: .leading) {
+                    Text(coinDescription.removingHTMLOccurences)
+                        .lineLimit(readMore ? nil : 3)
+                        .font(.callout)
+                        .foregroundStyle(Color.theme.secondaryText)
+                    
+                    Button(action: {
+                        withAnimation(.easeIn) {
+                            readMore.toggle()
+                        }
+                    }, label: {
+                        Text(readMore ? "Less" : "Read more")
+                            .font(.subheadline.bold())
+                            .padding(.vertical, 3)
+                    })
+                    .tint(.blue)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                
+            }
+        }
     }
     
     private var additionalTitle: some View {
@@ -74,7 +106,7 @@ extension CoinDetailView {
                     .font(.caption)
                     .foregroundColor(Color.theme.secondaryText)
                     .padding(.bottom, 5)
-                Text(coin.price.formattedPrice())
+                Text(viewModel.coinDetail.price.formattedPrice())
                     .font(.headline)
                     .foregroundColor(Color.theme.lightGray)
             }
@@ -84,7 +116,7 @@ extension CoinDetailView {
                     .font(.caption)
                     .foregroundColor(Color.theme.secondaryText)
                     .padding(.bottom, 5)
-                Text("$\(coin.marketCapitalization.formattedWithAbbreviations())")
+                Text("$\(viewModel.coinDetail.marketCapitalization.formattedWithAbbreviations())")
                     .font(.headline)
                     .foregroundColor(Color.theme.lightGray)
             }
@@ -102,12 +134,12 @@ extension CoinDetailView {
                     HStack {
                         Image(systemName: "triangle.fill")
                             .rotationEffect(
-                                Angle(degrees:(Double(coin.change) ?? 0) >= 0 ? 0 : 180))
+                                Angle(degrees:(Double(viewModel.coinDetail.change) ?? 0) >= 0 ? 0 : 180))
                         
-                        Text(Double(coin.change)?.asPercentString() ?? "")
+                        Text(Double(viewModel.coinDetail.change)?.asPercentString() ?? "")
                     }
-                    .foregroundColor((Double(coin.change) ?? 0) >= 0 ? Color.theme.green : Color.theme.red)
-                    .opacity(Double(coin.change) == nil ? 0.0 : 1.0)
+                    .foregroundColor((Double(viewModel.coinDetail.change) ?? 0) >= 0 ? Color.theme.green : Color.theme.red)
+                    .opacity(Double(viewModel.coinDetail.change) == nil ? 0.0 : 1.0)
                 }
                 
                 
@@ -117,7 +149,7 @@ extension CoinDetailView {
                         .font(.caption)
                         .foregroundColor(Color.theme.secondaryText)
                         .padding(.bottom, 5)
-                    Text("$\(coin.hourlyVol.formattedWithAbbreviations())")
+                    Text("$\(viewModel.coinDetail.hourlyVol.formattedWithAbbreviations())")
                         .font(.headline)
                         .foregroundColor(Color.theme.lightGray)
                 }
@@ -130,7 +162,7 @@ extension CoinDetailView {
                         .font(.caption)
                         .foregroundColor(Color.theme.secondaryText)
                         .padding(.bottom, 5)
-                    Text("\(coin.rank)")
+                    Text("\(viewModel.coinDetail.rank)")
                         .font(.headline)
                         .foregroundColor(Color.theme.lightGray)
                 }
@@ -142,21 +174,6 @@ extension CoinDetailView {
 
 
 #Preview {
-    
-    let sample = CoinList(
-        uuid: "Qwsogvtv82FCd",
-        name: "Bitcoin",
-        price: "97217.3",
-        symbol: "BTC",
-        iconUrl: "https://cdn.coinranking.com/bOabBYkcX/bitcoin_btc.svg",
-        change: "2.09",
-        marketCap: "46826432",
-        volume24h: "423342",
-        rank: 1,
-        listedAt: 342132332,
-        sparkline: [
-            "95232", "95385"
-        ])
-    CoinDetailView(coin: sample)
+    CoinDetailView(uuid: "Qwsogvtv82FCd")
 
 }

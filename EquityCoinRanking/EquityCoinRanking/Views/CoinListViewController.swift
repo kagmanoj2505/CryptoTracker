@@ -29,8 +29,8 @@ class CoinListViewController: UIViewController {
         viewModel = CoinListViewModel(favoritesManager: favoritesManager)
         
         setupUI()
-        bindViewModel()
         loadData()
+        bindViewModel()
     }
     
     private func setupUI() {
@@ -139,7 +139,7 @@ extension CoinListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let coin = viewModel.filteredCoins[indexPath.row]
-        let swiftUIDetailVC = UIHostingController(rootView: CoinDetailView(coin: coin))
+        let swiftUIDetailVC = UIHostingController(rootView: CoinDetailView(uuid: coin.uuid))
         swiftUIDetailVC.title = coin.name
         navigationItem.backButtonTitle = ""
         navigationController?.pushViewController(swiftUIDetailVC, animated: true)

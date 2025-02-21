@@ -75,24 +75,10 @@ final class CoinListViewModelTests: XCTestCase {
     }
 
     func testSearchCoins() {
-        let mockCoin = CoinList(
-            uuid: "534345",
-            name: "BTC",
-            price: "6000",
-            symbol: "YTC",
-            iconUrl: "https://cdn.coinranking.com/bOabBYkcX/bitcoin_btc.svg",
-            change: "1.43",
-            marketCap: "34234232",
-            volume24h: "32132",
-            rank: 3,
-            listedAt: 32211.21,
-            sparkline: []
-        )
-        
-        viewModel.coins = [mockCoin]
+        viewModel.coins = [CoinList.placeholder]
 
         viewModel.searchCoins(searchText: "bitcoin")
-        XCTAssertEqual(viewModel.filteredCoins.count, 0)
+        XCTAssertEqual(viewModel.filteredCoins.count, 1)
 
         viewModel.searchCoins(searchText: "")
         XCTAssertEqual(viewModel.filteredCoins.count, 1)

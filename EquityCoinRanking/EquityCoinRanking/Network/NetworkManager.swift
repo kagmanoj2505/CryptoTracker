@@ -20,10 +20,6 @@ class NetworkManager: NetworkManagerProtocol {
     }
     
     func fetchData<T: Decodable>(_ endPoint: EndPoint) -> AnyPublisher<T, APIError> {
-        guard networkMonitor.isConnected else {
-            return Fail(error: APIError.noInternet).eraseToAnyPublisher()
-        }
-        
         guard let request = endPoint.request else {
             return Fail(error: APIError.invalidURL).eraseToAnyPublisher()
         }

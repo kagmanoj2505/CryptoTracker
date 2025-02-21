@@ -18,65 +18,26 @@ final class FavoritesManagerTests: XCTestCase {
     }
 
     func testAddFavorite() {
-        let mockCoin = CoinList(
-            uuid: "1",
-            name: "BTC",
-            price: "1.23",
-            symbol: "YTC",
-            iconUrl: "https://cdn.coinranking.com/bOabBYkcX/bitcoin_btc.svg",
-            change: "1.43",
-            marketCap: "34234232",
-            volume24h: "32132",
-            rank: 3,
-            listedAt: 32211.21,
-            sparkline: []
-        )
-        favoritesManager.addFavorite(mockCoin)
+        favoritesManager.addFavorite(CoinList.placeholder)
 
         let favorites = favoritesManager.getFavorites()
         XCTAssertEqual(favorites.count, 1)
-        XCTAssertEqual(favorites.first?.uuid, "1")
+        XCTAssertEqual(favorites.first?.uuid, "placeholder")
     }
 
     func testRemoveFavorite() {
-        let mockCoin = CoinList(
-            uuid: "534345",
-            name: "BTC",
-            price: "1.23",
-            symbol: "YTC",
-            iconUrl: "https://cdn.coinranking.com/bOabBYkcX/bitcoin_btc.svg",
-            change: "1.43",
-            marketCap: "34234232",
-            volume24h: "32132",
-            rank: 3,
-            listedAt: 32211.21,
-            sparkline: []
-        )
-        favoritesManager.addFavorite(mockCoin)
-        favoritesManager.removeFavorite(mockCoin)
+        favoritesManager.addFavorite(CoinList.placeholder)
+        favoritesManager.removeFavorite(CoinList.placeholder)
 
         let favorites = favoritesManager.getFavorites()
         XCTAssertTrue(favorites.isEmpty)
     }
 
     func testIsFavorite() {
-        let mockCoin = CoinList(
-            uuid: "534345",
-            name: "BTC",
-            price: "1.23",
-            symbol: "YTC",
-            iconUrl: "https://cdn.coinranking.com/bOabBYkcX/bitcoin_btc.svg",
-            change: "1.43",
-            marketCap: "34234232",
-            volume24h: "32132",
-            rank: 3,
-            listedAt: 32211.21,
-            sparkline: []
-        )
-        favoritesManager.addFavorite(mockCoin)
+        favoritesManager.addFavorite(CoinList.placeholder)
 
-        XCTAssertTrue(favoritesManager.isFavorite(mockCoin))
-        favoritesManager.removeFavorite(mockCoin)
-        XCTAssertFalse(favoritesManager.isFavorite(mockCoin))
+        XCTAssertTrue(favoritesManager.isFavorite(CoinList.placeholder))
+        favoritesManager.removeFavorite(CoinList.placeholder)
+        XCTAssertFalse(favoritesManager.isFavorite(CoinList.placeholder))
     }
 }

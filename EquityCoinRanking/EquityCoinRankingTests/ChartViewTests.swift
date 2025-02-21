@@ -24,6 +24,7 @@ final class ChartViewTests: XCTestCase {
             change: "2.09",
             marketCap: "4242321",
             volume24h: "52353",
+            description: "Description",
             rank: 1,
             listedAt: 342132332,
             sparkline: [

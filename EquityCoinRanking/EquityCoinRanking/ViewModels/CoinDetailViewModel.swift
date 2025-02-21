@@ -10,17 +10,15 @@ import Foundation
 import Combine
 
 class CoinDetailViewModel: ObservableObject {
-    @Published var coinDetail: CoinList?
+    @Published var coinDetail: CoinList = CoinList.placeholder
     @Published var isLoading: Bool = false
     @Published var errorMessage: String? = nil
     
     private let networkManager: NetworkManagerProtocol
     private var cancellables = Set<AnyCancellable>()
 
-    init(coin: CoinList, networkManager: NetworkManagerProtocol = NetworkManager()) {
+    init(networkManager: NetworkManagerProtocol = NetworkManager()) {
         self.networkManager = networkManager
-        self.coinDetail = coin
-        fetchCoinDetail(uuid: coin.uuid)
     }
     
     func fetchCoinDetail(uuid: String) {

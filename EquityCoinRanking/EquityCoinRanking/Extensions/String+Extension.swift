@@ -22,4 +22,8 @@ extension String {
         
         return formatter.string(from: NSNumber(value: priceValue)) ?? "N/A"
     }
+    
+    var removingHTMLOccurences: String {
+        return self.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression)
+    }
 }
